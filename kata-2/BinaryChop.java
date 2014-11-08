@@ -5,6 +5,11 @@ class BinaryChop{
     if((t-s)==1){
       if(array[s]==n) res=s;
     }
+    else{
+      int mid=(t-s)/2;
+      res=recursiveChop(array, s, mid, n);
+      if(res==-1) res=recursiveChop(array, mid, t, n);
+    }
     return res;
   }
 
