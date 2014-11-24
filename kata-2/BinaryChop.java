@@ -28,7 +28,10 @@ class BinaryChop{
   }
 
   public void test(ChopType T){
-    // System.out.println("this is test");
+    test(T, 100);
+  }
+  public void test(ChopType T, int testNum){
+    System.out.println("test start ChopType:"+T);
     try {
       assert 0==-1;
       System.out.println("run with -ea option to test");
@@ -44,7 +47,7 @@ class BinaryChop{
       int[] case3=new int[] {1,2,4};
       int[] case4=new int[] {1,2,4,9};
       int[][] testCases={case0, case1, case2, case3, case4};
-      for(int i=0; i<testCases.length; i++){
+      for(int i=0; i<testCases.length && i<testNum; i++){
         int[] tmp=testCases[i];
         for(int j=0; j<tmp.length; j++)
           assert chop(tmp, tmp[j], T)==j;
@@ -52,6 +55,7 @@ class BinaryChop{
         assert chop(tmp, 0, T)==-1;
         assert chop(tmp, 3, T)==-1;
         assert chop(tmp, 10, T)==-1;
+        System.out.println("case #"+i+": succeeded");
       }
       // assert chop(case0, 0)==-1;
       // assert chop(case1, 1)==0;
@@ -63,16 +67,17 @@ class BinaryChop{
       // assert chop(case3, 10)==-1;
       // assert chop(case3, 3)==-1;
 
-      System.out.println("test succeeded");
     }catch(AssertionError e){
       System.out.println("test failed");
       e.printStackTrace();
     }
+    System.out.println("test finished");
   }
 
   public static void main(String[] args){
     // System.out.println("Binary Chop");
     BinaryChop binary=new BinaryChop();
     binary.test(ChopType.RECURSIVE);
+    // binary.test(ChopType.ITERATIVE);
   }
 }
