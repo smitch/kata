@@ -19,12 +19,15 @@ class BinaryChop{
   // public int chop(int[] array, int n){
     int res=-1;
     int length=array.length;
-    if(length!=0) res=recursiveChop(array, 0, array.length, n);
-
+    if(length==0) return res;
+    switch(T){
+    case RECURSIVE: res=recursiveChop(array, 0, array.length, n);
+    default: res=recursiveChop(array, 0, array.length, n);
+    }
     return res;
   }
 
-  public void test(){
+  public void test(ChopType T){
     // System.out.println("this is test");
     try {
       assert 0==-1;
@@ -44,11 +47,11 @@ class BinaryChop{
       for(int i=0; i<testCases.length; i++){
         int[] tmp=testCases[i];
         for(int j=0; j<tmp.length; j++)
-          assert chop(tmp, tmp[j], ChopType.RECURSIVE)==j;
+          assert chop(tmp, tmp[j], T)==j;
           // assert chop(tmp, tmp[j])==j;
-        // assert chop(tmp, 0)==-1;
-        // assert chop(tmp, 3)==-1;
-        // assert chop(tmp, 10)==-1;
+        assert chop(tmp, 0, T)==-1;
+        assert chop(tmp, 3, T)==-1;
+        assert chop(tmp, 10, T)==-1;
       }
       // assert chop(case0, 0)==-1;
       // assert chop(case1, 1)==0;
@@ -70,6 +73,6 @@ class BinaryChop{
   public static void main(String[] args){
     // System.out.println("Binary Chop");
     BinaryChop binary=new BinaryChop();
-    binary.test();
+    binary.test(ChopType.RECURSIVE);
   }
 }
