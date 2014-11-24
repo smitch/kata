@@ -2,6 +2,18 @@ class BinaryChop{
 
   enum ChopType {RECURSIVE, ITERATIVE, FUNCTIONAL, STD_FUNC, TREE};
 
+  private int iterativeChop(int[] array, int s, int t, int n){
+    int res=-1;
+    int low=s, high=t;
+    while(low+1<high){
+      int mid=(low+high)/2;
+      if(array[mid]>n) high=mid;
+      else low=mid;
+    }
+    if(array[low]==n) res=low;
+    return res;
+  }
+  
   private int recursiveChop(int[] array, int s, int t, int n){
     int res=-1;
     if((t-s)==1){
@@ -22,6 +34,7 @@ class BinaryChop{
     if(length==0) return res;
     switch(T){
     case RECURSIVE: res=recursiveChop(array, 0, array.length, n);
+    case ITERATIVE: res=iterativeChop(array, 0, array.length, n);
     default: res=recursiveChop(array, 0, array.length, n);
     }
     return res;
@@ -78,6 +91,6 @@ class BinaryChop{
     // System.out.println("Binary Chop");
     BinaryChop binary=new BinaryChop();
     binary.test(ChopType.RECURSIVE);
-    // binary.test(ChopType.ITERATIVE);
+    binary.test(ChopType.ITERATIVE);
   }
 }
