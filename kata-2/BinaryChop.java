@@ -35,7 +35,8 @@ class BinaryChop{
     switch(T){
     case RECURSIVE: res=recursiveChop(array, 0, array.length, n);
     case ITERATIVE: res=iterativeChop(array, 0, array.length, n);
-    default: res=recursiveChop(array, 0, array.length, n);
+        //    case FUNCTIONAL: res=iterativeChop(array, 0, array.length, n);
+        //    default: System.err.println("Error: no such ChopType "+T);
     }
     return res;
   }
@@ -92,5 +93,6 @@ class BinaryChop{
     BinaryChop binary=new BinaryChop();
     binary.test(ChopType.RECURSIVE);
     binary.test(ChopType.ITERATIVE);
+    binary.test(ChopType.FUNCTIONAL, 1);
   }
 }
