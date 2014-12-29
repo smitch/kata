@@ -1,3 +1,5 @@
+import java.util.*;
+
 class BinaryChop{
 
   enum ChopType {RECURSIVE, ITERATIVE, FUNCTIONAL, STD_FUNC, TREE};
@@ -5,7 +7,20 @@ class BinaryChop{
   private int functionalChop(int[] array, int s, int t, int n){
       int res=-1;
       int mid=(s+t)/2;
-      if(array[mid]==n) res=mid;
+      System.out.format("\ns=%d, mid=%d, t=%d, n=%d\n", s, mid, t, n);
+      System.out.println("array="+Arrays.toString(array));
+      System.out.println("array[s:mid)="+Arrays.toString(Arrays.copyOfRange(array, s, mid)));
+      System.out.println("array[mid:t)="+Arrays.toString(Arrays.copyOfRange(array, mid, t)));
+      if(array.length==1){
+        if(array[s]==n)
+          res=s;
+        else res=-1;
+      }
+      else if(array[mid]>n) res=functionalChop(Arrays.copyOfRange(array, s, mid), 0, mid-s+1, n);
+      else{
+        res=functionalChop(Arrays.copyOfRange(array, mid, t), 0, t-mid, n);
+        if(res!=-1) res+=mid;
+      }
       return res;
   }
 
@@ -67,6 +82,7 @@ class BinaryChop{
     catch(AssertionError e){
     }
 
+    int ans=0, expect=0;
     try {
       int[] case0=new int[] {};
       int[] case1=new int[] {1};
@@ -75,14 +91,21 @@ class BinaryChop{
       int[] case4=new int[] {1,2,4,9};
       int[][] testCases={case0, case1, case2, case3, case4};
       for(int i=0; i<testCases.length && i<testNum; i++){
+        System.out.print("case #"+i);
         int[] tmp=testCases[i];
-        for(int j=0; j<tmp.length; j++)
-          assert chop(tmp, tmp[j], T)==j;
-          // assert chop(tmp, tmp[j])==j;
-        assert chop(tmp, 0, T)==-1;
-        assert chop(tmp, 3, T)==-1;
-        assert chop(tmp, 10, T)==-1;
-        System.out.println("case #"+i+": succeeded");
+        for(int j=0; j<tmp.length; j++){
+          expect=j;
+          ans=chop(tmp, tmp[j], T);
+          assert ans==expect;
+        }
+        expect=-1;
+        ans=chop(tmp, 0, T); 
+        assert ans==expect;
+        ans=chop(tmp, 3, T); 
+        assert ans==expect;
+        ans=chop(tmp, 10, T);
+        assert ans==expect;
+        System.out.println(": succeeded");
       }
       // assert chop(case0, 0)==-1;
       // assert chop(case1, 1)==0;
@@ -95,8 +118,9 @@ class BinaryChop{
       // assert chop(case3, 3)==-1;
 
     }catch(AssertionError e){
-      System.out.println("test failed");
-      e.printStackTrace();
+      System.out.println(": failed");
+      System.out.format("expect=%d, ans=%d\n", expect, ans);
+      //      e.printStackTrace();
     }
     System.out.println("test finished");
   }
@@ -106,7 +130,7 @@ class BinaryChop{
     BinaryChop binary=new BinaryChop();
     binary.test(ChopType.RECURSIVE);
     binary.test(ChopType.ITERATIVE);
-    binary.test(ChopType.FUNCTIONAL, 2);
+    binary.test(ChopType.FUNCTIONAL, 3);
     // binary.test(ChopType.FUNCTIONAL);
   }
 }
