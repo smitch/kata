@@ -16,11 +16,11 @@ class BinaryChop{
           res=s;
         else res=-1;
       }
-      else if(array[mid]>n) res=functionalChop(Arrays.copyOfRange(array, s, mid), 0, mid-s+1, n);
-      else{
-        res=functionalChop(Arrays.copyOfRange(array, mid, t), 0, t-mid, n);
-        if(res!=-1) res+=mid;
-      }
+      // else if(array[mid]>n) res=functionalChop(Arrays.copyOfRange(array, s, mid), 0, mid-s+1, n);
+      // else{
+      //   res=functionalChop(Arrays.copyOfRange(array, mid, t), 0, t-mid, n);
+      //   if(res!=-1) res+=mid;
+      // }
       return res;
   }
 
@@ -91,18 +91,25 @@ class BinaryChop{
       int[] case4=new int[] {1,2,4,9};
       int[][] testCases={case0, case1, case2, case3, case4};
       for(int i=0; i<testCases.length && i<testNum; i++){
-        System.out.print("case #"+i);
         int[] tmp=testCases[i];
-        for(int j=0; j<tmp.length; j++){
+        int j=0;
+        for(j=0; j<tmp.length; j++){
+          System.out.format("case #%d-%d\n", i, j);
           expect=j;
           ans=chop(tmp, tmp[j], T);
           assert ans==expect;
+          System.out.println(": succeeded");
         }
         expect=-1;
+        System.out.format("case #%d-%d\n", i, j++);
         ans=chop(tmp, 0, T); 
         assert ans==expect;
+        System.out.println(": succeeded");
+        System.out.format("case #%d-%d\n", i, j++);
         ans=chop(tmp, 3, T); 
         assert ans==expect;
+        System.out.println(": succeeded");
+        System.out.format("case #%d-%d\n", i, j++);
         ans=chop(tmp, 10, T);
         assert ans==expect;
         System.out.println(": succeeded");
@@ -130,7 +137,7 @@ class BinaryChop{
     BinaryChop binary=new BinaryChop();
     binary.test(ChopType.RECURSIVE);
     binary.test(ChopType.ITERATIVE);
-    binary.test(ChopType.FUNCTIONAL, 3);
-    // binary.test(ChopType.FUNCTIONAL);
+    binary.test(ChopType.FUNCTIONAL);
+    // binary.test(ChopType.FUNCTIONAL, 3);
   }
 }
