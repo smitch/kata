@@ -6,6 +6,8 @@ class BinaryChop{
 
   private int stdFuncChop(int[] array, int s, int t, int n){
     int res=-1;
+    res=Arrays.binarySearch(array, n);
+    if(res<0) res=-1;
     return res;
   }
 
