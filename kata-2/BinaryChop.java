@@ -4,6 +4,11 @@ class BinaryChop{
 
   enum ChopType {RECURSIVE, ITERATIVE, FUNCTIONAL, STD_FUNC, TREE};
 
+  private int stdFuncChop(int[] array, int s, int t, int n){
+    int res=-1;
+    return res;
+  }
+
   private int functionalChop(int[] array, int s, int t, int n){
       int res=-1;
       int mid=(s+t)/2;
@@ -63,6 +68,9 @@ class BinaryChop{
         break;
     case FUNCTIONAL:
         res=functionalChop(array, 0, array.length, n);
+        break;
+    case STD_FUNC:
+        res=stdFuncChop(array, 0, array.length, n);
         break;
     default: System.err.println("Error: no such ChopType "+T);
     }
