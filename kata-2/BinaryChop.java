@@ -7,20 +7,20 @@ class BinaryChop{
   private int functionalChop(int[] array, int s, int t, int n){
       int res=-1;
       int mid=(s+t)/2;
-      System.out.format("\ns=%d, mid=%d, t=%d, n=%d\n", s, mid, t, n);
-      System.out.println("array="+Arrays.toString(array));
-      System.out.println("array[s:mid)="+Arrays.toString(Arrays.copyOfRange(array, s, mid)));
-      System.out.println("array[mid:t)="+Arrays.toString(Arrays.copyOfRange(array, mid, t)));
+      // System.out.format("\ns=%d, mid=%d, t=%d, n=%d\n", s, mid, t, n);
+      // System.out.println("array="+Arrays.toString(array));
+      // System.out.println("array[s:mid)="+Arrays.toString(Arrays.copyOfRange(array, s, mid)));
+      // System.out.println("array[mid:t)="+Arrays.toString(Arrays.copyOfRange(array, mid, t)));
       if(array.length==1){
         if(array[s]==n)
           res=s;
         else res=-1;
       }
-      // else if(array[mid]>n) res=functionalChop(Arrays.copyOfRange(array, s, mid), 0, mid-s+1, n);
-      // else{
-      //   res=functionalChop(Arrays.copyOfRange(array, mid, t), 0, t-mid, n);
-      //   if(res!=-1) res+=mid;
-      // }
+      else if(array[mid]>n) res=functionalChop(Arrays.copyOfRange(array, s, mid), 0, mid, n);
+      else{
+        res=functionalChop(Arrays.copyOfRange(array, mid, t), 0, t-mid, n);
+        if(res!=-1) res+=mid;
+      }
       return res;
   }
 
@@ -94,22 +94,22 @@ class BinaryChop{
         int[] tmp=testCases[i];
         int j=0;
         for(j=0; j<tmp.length; j++){
-          System.out.format("case #%d-%d\n", i, j);
+          System.out.format("case #%d-%d", i, j);
           expect=j;
           ans=chop(tmp, tmp[j], T);
           assert ans==expect;
           System.out.println(": succeeded");
         }
         expect=-1;
-        System.out.format("case #%d-%d\n", i, j++);
+        System.out.format("case #%d-%d", i, j++);
         ans=chop(tmp, 0, T); 
         assert ans==expect;
         System.out.println(": succeeded");
-        System.out.format("case #%d-%d\n", i, j++);
+        System.out.format("case #%d-%d", i, j++);
         ans=chop(tmp, 3, T); 
         assert ans==expect;
         System.out.println(": succeeded");
-        System.out.format("case #%d-%d\n", i, j++);
+        System.out.format("case #%d-%d", i, j++);
         ans=chop(tmp, 10, T);
         assert ans==expect;
         System.out.println(": succeeded");
