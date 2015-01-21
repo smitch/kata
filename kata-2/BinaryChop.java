@@ -138,6 +138,7 @@ class BinaryChop{
     binary.test(ChopType.RECURSIVE);
     binary.test(ChopType.ITERATIVE);
     binary.test(ChopType.FUNCTIONAL);
+    binary.test(ChopType.STD_FUNC);
     // binary.test(ChopType.FUNCTIONAL, 3);
   }
 }
