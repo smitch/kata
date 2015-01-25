@@ -4,8 +4,13 @@ class BinaryChop{
 
   enum ChopType {RECURSIVE, ITERATIVE, FUNCTIONAL, STD_FUNC, OBJECT_ORIENTED};
 
+  private class ObjectOrientedChop{
+
+  }
+
   private int objectOrientedChop(int[] array, int s, int t, int n){
     int res=-1;
+    ObjectOrientedChop chop=new ObjectOrientedChop();
     return res;
   }
 
