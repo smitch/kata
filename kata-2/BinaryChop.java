@@ -5,12 +5,34 @@ class BinaryChop{
   enum ChopType {RECURSIVE, ITERATIVE, FUNCTIONAL, STD_FUNC, OBJECT_ORIENTED};
 
   private class ObjectOrientedChop{
+    int[] array;
+    int s;
+    int t;
+    int n;
+    ObjectOrientedChop(int[] array, int s, int t, int n){
+      this.array=array;
+      this.s=s;
+      this.t=t;
+      this.n=n;
+    }
 
+    public int find(){
+      int res=-1;
+      int low=s, high=t;
+      while(low+1<high){
+        int mid=(low+high)/2;
+        if(array[mid]>n) high=mid;
+        else low=mid;
+      }
+      if(array[low]==n) res=low;
+      return res;
+    }
   }
 
   private int objectOrientedChop(int[] array, int s, int t, int n){
     int res=-1;
-    ObjectOrientedChop chop=new ObjectOrientedChop();
+    ObjectOrientedChop chop=new ObjectOrientedChop(array, s, t, n);
+    res=chop.find();
     return res;
   }
 
