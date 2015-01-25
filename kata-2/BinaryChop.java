@@ -2,7 +2,7 @@ import java.util.*;
 
 class BinaryChop{
 
-  enum ChopType {RECURSIVE, ITERATIVE, FUNCTIONAL, STD_FUNC, OOO};
+  enum ChopType {RECURSIVE, ITERATIVE, FUNCTIONAL, STD_FUNC, OBJECT_ORIENTED};
 
   private int stdFuncChop(int[] array, int s, int t, int n){
     int res=-1;
@@ -150,7 +150,7 @@ class BinaryChop{
     binary.test(ChopType.ITERATIVE);
     binary.test(ChopType.FUNCTIONAL);
     binary.test(ChopType.STD_FUNC);
-    binary.test(ChopType.OOO);
+    binary.test(ChopType.OBJECT_ORIENTED);
     // binary.test(ChopType.FUNCTIONAL, 3);
   }
 }
