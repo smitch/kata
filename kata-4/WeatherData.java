@@ -1,7 +1,20 @@
 class WeatherData{
 
+  private int minmumTempSpreadDay(){
+    int res=0;
+    return res;
+  }
+
+  private int tempSpread(){
+    in res=0;
+    return res;
+  }
+
+  private bool fileOpen(){
+  }
+
   public void test(){
-    try {
+    try{
       assert 0==-1;
       System.out.println("run with -ea option to test");
       return;
@@ -11,7 +24,8 @@ class WeatherData{
     }
 
     int ans=0, expect=0;
-    try {
+    try{
+      ans fileOpen()==true;
       // ans=minimunTempSpreadDay();
       // expect=14
       // assert ans==14;
