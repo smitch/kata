@@ -1,3 +1,5 @@
+import java.io.*;
+
 class WeatherData{
 
   private int minmumTempSpreadDay(){
@@ -6,11 +8,29 @@ class WeatherData{
   }
 
   private int tempSpread(){
-    in res=0;
+    int res=0;
     return res;
   }
 
-  private bool fileOpen(){
+  private boolean fileOpen(){
+    boolean res=false;
+    String fileName="weather.dat";
+    try{
+      File file=new File(fileName);
+      BufferedReader br = new BufferedReader(new FileReader(file));
+      String str;
+      while((str=br.readLine()) != null){
+        System.out.println(str);
+      }
+      br.close();
+    }
+    catch(FileNotFoundException e){
+      System.out.println(e);
+    }
+    catch(IOException e){
+      System.out.println(e);
+    }
+    return res;
   }
 
   public void test(){
@@ -25,7 +45,7 @@ class WeatherData{
 
     int ans=0, expect=0;
     try{
-      ans fileOpen()==true;
+      assert fileOpen()==true;
       // ans=minimunTempSpreadDay();
       // expect=14
       // assert ans==14;
@@ -36,6 +56,6 @@ class WeatherData{
   }
 
   public static void main(String[] args){
-    System.out.println("code kata: Weather Data");
+    (new WeatherData()).test();
   }
 }
