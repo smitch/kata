@@ -29,8 +29,34 @@ class WeatherData{
       if(spread<minimumTempSpread) minimumTempSpread=spread;
     }
   }
+
   private int getMinimumTempSpread(){
     return minimumTempSpread;
+  }
+
+  private int readMimimumTempSpread(){
+    fileOpen();
+    try{
+      String str;
+      br.readLine(); // legend line
+      br.readLine(); // blank line
+     while((str=br.readLine()) != null){
+        // System.out.println(str);
+       String[] arr;
+       arr=str.replace("*", " ").split(" +");
+       // System.out.println(arr[0]);
+       // System.out.println(Arrays.toString(arr));
+       upDateTempSpread(arr);
+      }
+    }
+    catch(FileNotFoundException e){
+      System.out.println(e);
+    }
+    catch(IOException e){
+      System.out.println(e);
+    }
+    fileClose();
+    return getMinimumTempSpread();
   }
 
   private int minmumTempSpreadDay(){
@@ -134,9 +160,9 @@ class WeatherData{
       assert getMinimumTempSpread()==12;
       upDateTempSpread(new String[] {"", "hoge", "22", "22"});
       assert getMinimumTempSpread()==12;
-      // ans=minimunTempSpreadDay();
-      // expect=14
-      // assert ans==14;
+      ans=readMimimumTempSpread();
+      expect=2;
+      assert ans==2;
       System.out.println("test succeeded");
     }catch(AssertionError e){
       System.out.println("test failed");
