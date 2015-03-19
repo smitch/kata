@@ -4,13 +4,36 @@ import java.util.*;
 class WeatherData{
 
   private BufferedReader br;
+  private int minimumTempSpread=1000000;
 
-  private int minmumTempSpreadDay(){
-    int res=0;
-    return res;
+  private void upDateTempSpread(int max, int min){
+    int spread=max-min;
+    if(spread<minimumTempSpread) minimumTempSpread=spread;
   }
 
-  private int tempSpread(){
+  private boolean isDigit(String str){
+    try{
+      Integer.parseInt(str);
+      return true;
+    }
+    catch(NumberFormatException e){
+      return false;
+    }
+  }
+
+  private void upDateTempSpread(String[] strArray){
+    if(isDigit(strArray[1])){
+      int max=Integer.parseInt(strArray[2]);
+      int min=Integer.parseInt(strArray[3]);
+      int spread=max-min;
+      if(spread<minimumTempSpread) minimumTempSpread=spread;
+    }
+  }
+  private int getMinimumTempSpread(){
+    return minimumTempSpread;
+  }
+
+  private int minmumTempSpreadDay(){
     int res=0;
     return res;
   }
@@ -103,6 +126,14 @@ class WeatherData{
       // assert fileReadAll()==true;
       assert fileReadLine()==true;
       assert fileClose()==true;
+      upDateTempSpread(220, 100);
+      assert getMinimumTempSpread()==120;
+      assert isDigit("1")==true;
+      assert isDigit("hoge")==false;
+      upDateTempSpread(new String[] {"", "3", "22", "10"});
+      assert getMinimumTempSpread()==12;
+      upDateTempSpread(new String[] {"", "hoge", "22", "22"});
+      assert getMinimumTempSpread()==12;
       // ans=minimunTempSpreadDay();
       // expect=14
       // assert ans==14;
