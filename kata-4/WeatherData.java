@@ -5,6 +5,7 @@ class WeatherData{
 
   private BufferedReader br;
   private int minimumTempSpread=1000000;
+  private int minimumTempSpreadDay;
 
   private void upDateTempSpread(int max, int min){
     int spread=max-min;
@@ -26,8 +27,15 @@ class WeatherData{
       int max=Integer.parseInt(strArray[2]);
       int min=Integer.parseInt(strArray[3]);
       int spread=max-min;
-      if(spread<minimumTempSpread) minimumTempSpread=spread;
+      if(spread<minimumTempSpread){
+        minimumTempSpread=spread;
+        minimumTempSpreadDay=Integer.parseInt(strArray[1]);
+      }
     }
+  }
+
+  private int getMinimumTempSpreadDay(){
+    return minimumTempSpreadDay;
   }
 
   private int getMinimumTempSpread(){
@@ -162,7 +170,10 @@ class WeatherData{
       assert getMinimumTempSpread()==12;
       ans=readMimimumTempSpread();
       expect=2;
-      assert ans==2;
+      assert ans==expect;
+      ans=getMinimumTempSpreadDay();
+      expect=14;
+      assert ans==expect;
       System.out.println("test succeeded");
     }catch(AssertionError e){
       System.out.println("test failed");
