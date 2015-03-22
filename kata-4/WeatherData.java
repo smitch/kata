@@ -9,7 +9,8 @@ class WeatherData{
 
   private void upDateTempSpread(int max, int min){
     int spread=max-min;
-    if(spread<minimumTempSpread) minimumTempSpread=spread;
+    if(spread<minimumTempSpread)
+      minimumTempSpread=spread;
   }
 
   private boolean isDigit(String str){
@@ -46,14 +47,11 @@ class WeatherData{
     fileOpen();
     try{
       String str;
-      br.readLine(); // legend line
+      br.readLine(); // item name line
       br.readLine(); // blank line
      while((str=br.readLine()) != null){
-        // System.out.println(str);
        String[] arr;
        arr=str.replace("*", " ").split(" +");
-       // System.out.println(arr[0]);
-       // System.out.println(Arrays.toString(arr));
        upDateTempSpread(arr);
       }
     }
@@ -67,28 +65,16 @@ class WeatherData{
     return getMinimumTempSpread();
   }
 
-  private int minmumTempSpreadDay(){
-    int res=0;
-    return res;
-  }
-
   private boolean fileOpen(){
     boolean res=true;
     String fileName="weather.dat";
     try{
       File file=new File(fileName);
       br = new BufferedReader(new FileReader(file));
-      // String str;
-      // while((str=br.readLine()) != null){
-      //   System.out.println(str);
-      // }
     }
     catch(FileNotFoundException e){
       System.out.println(e);
     }
-    // catch(IOException e){
-    //   System.out.println(e);
-    // }
     return res;
   }
 
@@ -127,10 +113,8 @@ class WeatherData{
       br.readLine(); // legend line
       br.readLine(); // blank line
      while((str=br.readLine()) != null){
-        // System.out.println(str);
        String[] arr;
        arr=str.split(" +");
-       // System.out.println(arr[0]);
        System.out.println(Arrays.toString(arr));
       }
     }
@@ -157,7 +141,6 @@ class WeatherData{
     int ans=0, expect=0;
     try{
       assert fileOpen()==true;
-      // assert fileReadAll()==true;
       assert fileReadLine()==true;
       assert fileClose()==true;
       upDateTempSpread(220, 100);
