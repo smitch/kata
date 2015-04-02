@@ -70,7 +70,7 @@ class WeatherData{
     String fileName="weather.dat";
     try{
       File file=new File(fileName);
-      br = new BufferedReader(new FileReader(file));
+      br=new BufferedReader(new FileReader(file));
     }
     catch(FileNotFoundException e){
       System.out.println(e);
@@ -93,7 +93,7 @@ class WeatherData{
     boolean res=true;
     try{
       String str;
-      while((str=br.readLine()) != null){
+      while((str=br.readLine())!=null){
         System.out.println(str);
       }
     }
