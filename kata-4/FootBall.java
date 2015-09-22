@@ -1,5 +1,6 @@
 class FootBall{
 
+
   public void test(){
     try{
       assert 0==-1;
@@ -9,6 +10,17 @@ class FootBall{
     catch(AssertionError e){
       System.out.println("test start");
     }
+
+    int ans=0, expect=0;
+
+    System.out.println("print the team with the smallest differential betweeen for and away goals");
+
+    try{
+
+    }catch(AssertionError e){
+      System.out.println("test failed");
+    }
+
   }
 
   public static void main(String[] args){
