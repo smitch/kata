@@ -18,7 +18,7 @@ class FootBall{
 
     try{
       // do process here
-
+      assert fileOpen()==true;
       assert expect==ans;
 
     }catch(AssertionError e){
