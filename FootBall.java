@@ -18,6 +18,38 @@ class FootBall{
     return res;
   }
 
+  private boolean fileClose(){
+    boolean res=true;
+    try{
+      br.close();
+    }
+    catch(IOException e){
+      System.out.println(e);
+    }
+    return res;
+  }
+
+  private boolean getMinimumDiff(){
+    fileOpen();
+    boolean res=true;
+    try{
+      String str;
+      br.readLine(); // legend line
+      while((str=br.readLine()) != null){
+        String[] arr;
+        arr=str.split(" ");
+        System.out.println(Arrays.toString(arr));
+      }
+    }
+    catch(FileNotFoundException e){
+      System.out.println(e);
+    }
+    catch(IOException e){
+      System.out.println(e);
+    }
+    fileClose();
+    return res;
+  }
 
   public void test(){
     boolean isAssertionEnabled=false;
@@ -34,7 +66,10 @@ class FootBall{
 
     try{
       // do process here
-      assert fileOpen()==true;
+      assert fileOpen()==true: "file open failed";
+      assert fileClose()==true: "file close failed";
+      assert getMinimumDiff()==true;
+
       assert expect.equals(ans): "expect="+expect+" answer="+ans;
 
     }catch(AssertionError e){
