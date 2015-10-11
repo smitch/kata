@@ -1,32 +1,31 @@
+import java.io.*;
 import java.util.*;
 
 class FootBall{
 
+  private BufferedReader br;
+
   private boolean fileOpen(){
-    return false;
-  }
-
-  private boolean isAssertionEnabled(String[] args){
-    for(String str:args){
-      if(str.equals("-ea")) return true;
+    boolean res=true;
+    String fileName="football.dat";
+    try{
+      File file=new File(fileName);
+      br=new BufferedReader(new FileReader(file));
     }
-    return false;
+    catch(FileNotFoundException e){
+      System.out.println(e);
+    }
+    return res;
   }
 
-  public void test(String[] args){
-    if(!isAssertionEnabled(args)){
+
+  public void test(){
+    boolean isAssertionEnabled=false;
+    assert isAssertionEnabled=true;
+    if(!isAssertionEnabled){
       System.out.println("Error: run with -ea option to test");
       return;
     }
-
-    // try{
-    //   assert 0==-1;
-    //   System.out.println("Warning: run with -ea option to test");
-    //   return;
-    // }
-    // catch(AssertionError e){
-    //   System.out.println("test start");
-    // }
 
     String expect="Aston_Villa";
     String  ans="";
@@ -36,10 +35,11 @@ class FootBall{
     try{
       // do process here
       assert fileOpen()==true;
-      assert expect==ans;
+      assert expect.equals(ans): "expect="+expect+" answer="+ans;
 
     }catch(AssertionError e){
       System.out.println("test failed");
+      e.printStackTrace();
     }
 
   }
@@ -47,7 +47,7 @@ class FootBall{
   public static void main(String[] args){
     System.out.println("Foot ball class!");
 
-    (new FootBall()).test(args);
+    (new FootBall()).test();
 
   }
 }
