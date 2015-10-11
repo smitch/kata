@@ -1,15 +1,32 @@
+import java.util.*;
+
 class FootBall{
 
+  private boolean fileOpen(){
+    return false;
+  }
 
-  public void test(){
-    try{
-      assert 0==-1;
-      System.out.println("Warning: run with -ea option to test");
+  private boolean isAssertionEnabled(String[] args){
+    for(String str:args){
+      if(str.equals("-ea")) return true;
+    }
+    return false;
+  }
+
+  public void test(String[] args){
+    if(!isAssertionEnabled(args)){
+      System.out.println("Error: run with -ea option to test");
       return;
     }
-    catch(AssertionError e){
-      System.out.println("test start");
-    }
+
+    // try{
+    //   assert 0==-1;
+    //   System.out.println("Warning: run with -ea option to test");
+    //   return;
+    // }
+    // catch(AssertionError e){
+    //   System.out.println("test start");
+    // }
 
     String expect="Aston_Villa";
     String  ans="";
@@ -29,6 +46,8 @@ class FootBall{
 
   public static void main(String[] args){
     System.out.println("Foot ball class!");
-    (new FootBall()).test();
+
+    (new FootBall()).test(args);
+
   }
 }
