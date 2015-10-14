@@ -21,7 +21,7 @@ class BloomFilter{
       return;
     }
 
-    // open file
+    // open file; file contains a word per line
 
     // while bufferedReader != null
     // read a word in list
