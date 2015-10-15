@@ -31,13 +31,15 @@ class BloomFilter{
 
     // open file; file contains a word per line
 
-    // while bufferedReader != null
-    // read a word in list
-    // registDictionary
+    // for word in word list
+
+    // regist the word to Dictionary
 
     // assert the word is in the Dictionary
 
-    // close file
+    // close file when all word is registered
+
+
 
     // pick a word and check the word is in the dictionary
 
