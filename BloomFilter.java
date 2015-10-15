@@ -3,6 +3,7 @@ class BloomFilter{
   // class member
   // bloomTable: array of bits
   // tableSize
+  // private final String word list file
 
   private boolean isEnabledAssertion(){
     boolean isEnabled=false;
@@ -15,6 +16,13 @@ class BloomFilter{
   // ...
   // private hashMethodN
 
+  // private void registDictionary(String word)
+  // hash the word
+  // set the bits corresponding to the hash numbers on in dictionary(bloom table)
+
+  // private boolean isInDictionary(String word)
+
+
   private void test(){
     if(!isEnabledAssertion()){
       System.out.println("Error: -ea option is required to test");
@@ -25,8 +33,9 @@ class BloomFilter{
 
     // while bufferedReader != null
     // read a word in list
-    // hash the word
-    // set the bit corresponding to the hash number on in dictionary(bloom table)
+    // registDictionary
+
+    // assert the word is in the Dictionary
 
     // close file
 
