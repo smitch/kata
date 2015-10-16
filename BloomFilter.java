@@ -23,14 +23,40 @@ class BloomFilter{
 
   private void registDictionary(String word){
     // hash the word
+    int hashValue=hashMethod1(word);
+
     // modulo the hash number by tableSize=: index
-    // assert the index < tableSize
+    int index=hashValue%TABLE_SIZE;
+    if(index<0) index+=TABLE_SIZE;
+
+    // System.out.println("debug: hashValue is "+hashValue);
+    // System.out.println("debug: index is "+index);
+
+    assert 0<=index && index<TABLE_SIZE ;
+
     // set the bits corresponding to the index on in dictionary(bloom table)
+    bloomTable[index]=true;
+
     return;
   }
 
   private boolean isInDictionary(String word){
-    return false;
+    // hash the word
+    int hashValue=hashMethod1(word);
+
+    // modulo the hash number by tableSize=: index
+    int index=hashValue%TABLE_SIZE;
+    if(index<0) index+=TABLE_SIZE;
+
+    // System.out.println("debug: hashValue is "+hashValue);
+    // System.out.println("debug: index is "+index);
+
+    assert 0<=index && index<TABLE_SIZE ;
+
+    // check the bits corresponding to the index is on in dictionary(bloom table)
+    if(bloomTable[index]==true) return true;
+    else return false;
+
   }
 
 
@@ -42,6 +68,8 @@ class BloomFilter{
       System.out.println("Error: -ea option is required to test");
       return;
     }
+
+    // System.out.println("debug: table size is "+TABLE_SIZE);
 
     // open file; file contains a word per line
     try{
