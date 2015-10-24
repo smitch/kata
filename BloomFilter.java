@@ -14,6 +14,11 @@ class BloomFilter{
     return isEnabled;
   }
 
+  // define hash method interface
+  private interface hashMethod{
+    int hashMethod(String str);
+  }
+
   private int hashMethod1(String str){
     return str.hashCode();
   }
