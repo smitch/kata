@@ -40,42 +40,50 @@ class BloomFilter{
   }
 
   private void registDictionary(String word){
-    // hash the word
-    int hashValue=hms[0].hashMethod(word);
-    // int hashValue=hashMethod1(word);
+    for(HashMethods hmsTmp: hms){
+      // hash the word
+      int hashValue=hmsTmp.hashMethod(word);
+      // int hashValue=hashMethod1(word);
 
-    // modulo the hash number by tableSize=: index
-    int index=hashValue%TABLE_SIZE;
-    if(index<0) index+=TABLE_SIZE;
+      // modulo the hash number by tableSize=: index
+      int index=hashValue%TABLE_SIZE;
+      if(index<0) index+=TABLE_SIZE;
 
-    // System.out.println("debug: hashValue is "+hashValue);
-    // System.out.println("debug: index is "+index);
+      // System.out.println("debug: hashValue is "+hashValue);
+      // System.out.println("debug: index is "+index);
 
-    assert 0<=index && index<TABLE_SIZE;
+      assert 0<=index && index<TABLE_SIZE;
 
-    // set the bits corresponding to the index on in dictionary(bloom table)
-    bloomTable[index]=true;
-
+      // set the bits corresponding to the index on in dictionary(bloom table)
+      bloomTable[index]=true;
+    }
     return;
   }
 
   private boolean isInDictionary(String word){
-    // hash the word
-    int hashValue=hms[0].hashMethod(word);
-    // int hashValue=hashMethod1(word);
+    boolean res=true;
 
-    // modulo the hash number by tableSize=: index
-    int index=hashValue%TABLE_SIZE;
-    if(index<0) index+=TABLE_SIZE;
+    for(HashMethods hmsTmp: hms){
+      // hash the word
+      int hashValue=hmsTmp.hashMethod(word);
+      // int hashValue=hms[0].hashMethod(word);
+      // int hashValue=hashMethod1(word);
 
-    // System.out.println("debug: hashValue is "+hashValue);
-    // System.out.println("debug: index is "+index);
+      // modulo the hash number by tableSize=: index
+      int index=hashValue%TABLE_SIZE;
+      if(index<0) index+=TABLE_SIZE;
 
-    assert 0<=index && index<TABLE_SIZE ;
+      // System.out.println("debug: hashValue is "+hashValue);
+      // System.out.println("debug: index is "+index);
 
-    // check the bits corresponding to the index is on in dictionary(bloom table)
-    if(bloomTable[index]==true) return true;
-    else return false;
+      assert 0<=index && index<TABLE_SIZE ;
+
+      // check the bits corresponding to the index is on in dictionary(bloom table)
+      res&=bloomTable[index];
+      // if(bloomTable[index]==true) return true;
+      // else return false;
+    }
+    return res;
 
   }
 
