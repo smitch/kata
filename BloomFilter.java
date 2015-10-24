@@ -7,6 +7,8 @@ class BloomFilter{
   private boolean[] bloomTable;
   // bloomTable: array of bits
   private final String WORD_LIST="wordlist.txt";
+  private final int NUM_OF_HASH_METHOD=1;
+  private HashMethods[] hms;
 
   private boolean isEnabledAssertion(){
     boolean isEnabled=false;
@@ -15,7 +17,7 @@ class BloomFilter{
   }
 
   // define hash method interface
-  private interface hashMethod{
+  private interface HashMethods{
     int hashMethod(String str);
   }
 
@@ -26,9 +28,21 @@ class BloomFilter{
   // ...
   // private hashMethodN
 
+  private HashMethods[] getHashMethods(){
+    HashMethods[] res=new HashMethods[NUM_OF_HASH_METHOD];
+    res[0]=new HashMethods(){
+        @Override
+        public int hashMethod(String str){
+          return str.hashCode();
+        }
+      };
+    return res;
+  }
+
   private void registDictionary(String word){
     // hash the word
-    int hashValue=hashMethod1(word);
+    int hashValue=hms[0].hashMethod(word);
+    // int hashValue=hashMethod1(word);
 
     // modulo the hash number by tableSize=: index
     int index=hashValue%TABLE_SIZE;
@@ -37,7 +51,7 @@ class BloomFilter{
     // System.out.println("debug: hashValue is "+hashValue);
     // System.out.println("debug: index is "+index);
 
-    assert 0<=index && index<TABLE_SIZE ;
+    assert 0<=index && index<TABLE_SIZE;
 
     // set the bits corresponding to the index on in dictionary(bloom table)
     bloomTable[index]=true;
@@ -47,7 +61,8 @@ class BloomFilter{
 
   private boolean isInDictionary(String word){
     // hash the word
-    int hashValue=hashMethod1(word);
+    int hashValue=hms[0].hashMethod(word);
+    // int hashValue=hashMethod1(word);
 
     // modulo the hash number by tableSize=: index
     int index=hashValue%TABLE_SIZE;
@@ -64,10 +79,10 @@ class BloomFilter{
 
   }
 
-
   private void test(){
     BufferedReader br=null;
     bloomTable=new boolean[TABLE_SIZE];
+    hms = getHashMethods();
 
     if(!isEnabledAssertion()){
       System.out.println("Error: -ea option is required to test");
