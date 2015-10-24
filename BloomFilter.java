@@ -112,6 +112,8 @@ class BloomFilter{
     assert isInDictionary("xyzabc")==false;
     assert isInDictionary("hogehoge")==false;
 
+    // check the number of false positive
+
     return;
   }
 
