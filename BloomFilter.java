@@ -11,7 +11,8 @@ class BloomFilter{
   private HashMethods[] hms;
   private final int CHAR_OFFSET=65; //(int)'A'->65
   private final int NUM_OF_ALFABETS=26; // # of A~Z, same as # of a~z
-
+  private final String RANDOM_WORD_LIST="random.txt";
+  
   private boolean isEnabledAssertion(){
     boolean isEnabled=false;
     assert isEnabled=true;
@@ -25,7 +26,6 @@ class BloomFilter{
   private HashMethods[] getHashMethods(){
     HashMethods[] res=new HashMethods[NUM_OF_HASH_METHOD];
     res[0]=new HashMethods(){
-        @Override
         public int hashMethod(String str){
           return str.hashCode();
         }
@@ -56,7 +56,7 @@ class BloomFilter{
       int index=hashValue%TABLE_SIZE;
       if(index<0) index+=TABLE_SIZE;
 
-      assert 0<=index && index<TABLE_SIZE ;
+      assert 0<=index && index<TABLE_SIZE;
 
       res&=bloomTable[index];
     }
@@ -103,6 +103,7 @@ class BloomFilter{
     assert isWordInWordList("hogehoge")==false;
 
     // check the number of false positive
+    countFalsePositive();
 
     System.out.println("test finished");
     return;
@@ -121,6 +122,14 @@ class BloomFilter{
       str+=(char)tmp;
     }
     return str;
+  }
+
+  private void countFalsePositive(){
+    // read word form RANDOM_WORD_LIST
+    // check the word is in dictionary
+    // check the word is in WORD_LIST
+    // check the result is same
+    return;
   }
 
   private boolean isWordInWordList(String word){
@@ -163,6 +172,6 @@ class BloomFilter{
   public static void main(String args[]){
     System.out.println("kata-5: Bloom Filter");
     (new BloomFilter()).test();
-    (new BloomFilter()).writeRandomWordToFile(30, 4, "random.txt");
+    // (new BloomFilter()).writeRandomWordToFile(30, 4, "RANDOM_WORD_LIST");
   }
 }
