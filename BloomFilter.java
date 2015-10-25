@@ -25,11 +25,24 @@ class BloomFilter{
 
   private HashMethods[] getHashMethods(){
     HashMethods[] res=new HashMethods[NUM_OF_HASH_METHOD];
-    res[0]=new HashMethods(){
-        public int hashMethod(String str){
-          return str.hashCode();
-        }
-      };
+    if(NUM_OF_HASH_METHOD>0){
+      res[0]=new HashMethods(){
+          public int hashMethod(String str){
+            return str.hashCode();
+          }
+        };
+    }
+    if(NUM_OF_HASH_METHOD>1){
+      res[1]=new HashMethods(){
+          public int hashMethod(String str){
+            int res=13;
+            for(char c: str.toCharArray()){
+              res*=(int)c;
+            }
+            return res;
+          }
+        };
+    }
     return res;
   }
 
