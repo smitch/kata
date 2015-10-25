@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Random;
 
 class BloomFilter{
 
@@ -8,6 +9,8 @@ class BloomFilter{
   private final String WORD_LIST="wordlist.txt";
   private final int NUM_OF_HASH_METHOD=1;
   private HashMethods[] hms;
+  private final int CHAR_OFFSET=65; //(int)'A'->65
+  private final int NUM_OF_ALFABETS=26; // # of A~Z, same as # of a~z
 
   private boolean isEnabledAssertion(){
     boolean isEnabled=false;
@@ -76,7 +79,7 @@ class BloomFilter{
       br=new BufferedReader(new FileReader(file));
     }
     catch(FileNotFoundException e){
-      System.out.println(e);
+      System.err.println(e);
     }
 
     try{
@@ -87,17 +90,17 @@ class BloomFilter{
       }
     }
     catch(FileNotFoundException e){
-      System.out.println(e);
+      System.err.println(e);
     }
     catch(IOException e){
-      System.out.println(e);
+      System.err.println(e);
     }
 
     try{
       br.close();
     }
     catch(IOException e){
-      System.out.println(e);
+      System.err.println(e);
     }
 
 
@@ -112,8 +115,42 @@ class BloomFilter{
     return;
   }
 
+  private String getRandomWord(int wordLength){
+    Random rnd=new Random();
+    String str="";
+    for(int i=0; i<wordLength; i++){
+      int tmp=rnd.nextInt(NUM_OF_ALFABETS);
+      if(rnd.nextBoolean()) tmp+=CHAR_OFFSET;
+      else tmp=Character.toLowerCase((char)(tmp+CHAR_OFFSET));
+
+      // System.out.println(tmp);
+      assert (Character.isLowerCase((char)tmp)||Character.isUpperCase((char)tmp))==true;
+      str+=(char)tmp;
+    }
+    return str;
+  }
+
+  private void writeRandomWordToFile(int numWords, int wordLength, String fileName){
+    try{
+      File file=new File(fileName);
+      BufferedWriter bw=new BufferedWriter(new FileWriter(file));
+      for(int i=0; i<numWords; i++){
+        bw.write(getRandomWord(wordLength));
+        bw.newLine();
+      }
+      bw.close();
+    }
+    catch(FileNotFoundException e){
+      System.err.println(e);
+    }
+    catch(IOException e){
+      System.err.println(e);
+    }
+  }
+
   public static void main(String args[]){
     System.out.println("kata-5: Bloom Filter");
     (new BloomFilter()).test();
+    (new BloomFilter()).writeRandomWordToFile(30, 4, "random.txt");
   }
 }
