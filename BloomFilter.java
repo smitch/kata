@@ -108,6 +108,7 @@ class BloomFilter{
 
     // check the number of false positive
 
+    System.out.println("test finished");
     return;
   }
 
@@ -115,5 +116,4 @@ class BloomFilter{
     System.out.println("kata-5: Bloom Filter");
     (new BloomFilter()).test();
   }
-
 }
