@@ -1,10 +1,71 @@
 import java.io.*;
 import java.util.Random;
 
+/* experiment note
+   [condition]
+   words in dictionary: 338,882
+   random word length: 4(# of word combination is approximately 7.3M)
+   number of random word: 800(6 words is in the word list -> 764 words can be false positive)
+   number of hash method: 1~2
+   table size: Integer.MAX_VALUE>>8(2^23=8.3M)~Integer.MAX_VALUE>>12(2^19=524K)
+               Integer.MAX_VALUE=2^31-1
+
+   [result]
+   table size: Integer.MAX_VALUE>>8
+   hash method: 1
+   -> number of false positive: 29
+
+   table size: Integer.MAX_VALUE>>8
+   hash method: 1, 2
+   -> number of false positive: 5
+
+   table size: Integer.MAX_VALUE>>9
+   hash method: 1
+   -> number of false positive: 61
+
+   table size: Integer.MAX_VALUE>>9
+   hash method: 1, 2
+   -> number of false positive: 18
+
+   table size: Integer.MAX_VALUE>>10
+   hash method: 1
+   -> number of false positive: 139
+
+   table size: Integer.MAX_VALUE>>10
+   hash method: 1, 2
+   -> number of false positive: 65
+
+   table size: Integer.MAX_VALUE>>10
+   hash method: 1
+   -> number of false positive: 139
+
+   table size: Integer.MAX_VALUE>>10
+   hash method: 1, 2
+   -> number of false positive: 65
+
+   table size: Integer.MAX_VALUE>>11
+   hash method: 1
+   -> number of false positive: 216
+
+   table size: Integer.MAX_VALUE>>11
+   hash method: 1, 2
+   -> number of false positive: 178
+
+   table size: Integer.MAX_VALUE>>12
+   hash method: 1
+   -> number of false positive: 368
+
+   table size: Integer.MAX_VALUE>>12
+   hash method: 1, 2
+   -> number of false positive: 403
+
+*/
+
 class BloomFilter{
 
   // class member
-  private final int TABLE_SIZE=Integer.MAX_VALUE>>8;
+  private final int TABLE_SIZE=Integer.MAX_VALUE>>12;
+  // private final int TABLE_SIZE=Integer.MAX_VALUE>>8;
   private boolean[] bloomTable;
   private final String WORD_LIST="wordlist.txt";
   // private final int NUM_OF_HASH_METHOD=2;
@@ -13,7 +74,7 @@ class BloomFilter{
   private final int CHAR_OFFSET=65; //(int)'A'->65
   private final int NUM_OF_ALFABETS=26; // # of A~Z, same as # of a~z
   private final String RANDOM_WORD_LIST="random.txt";
-  
+
   private boolean isEnabledAssertion(){
     boolean isEnabled=false;
     assert isEnabled=true;
@@ -108,15 +169,16 @@ class BloomFilter{
 
     assert isInDictionary("AA")==true;
     assert isInDictionary("zythum")==true;
-    assert isInDictionary("xyzabc")==false;
-    assert isInDictionary("hogehoge")==false;
+    // assert isInDictionary("xyzabc")==false;
+    // assert isInDictionary("hogehoge")==false;
 
     assert isInWordList("AA")==true;
     assert isInWordList("zythum")==true;
     assert isInWordList("xyzabc")==false;
     assert isInWordList("hogehoge")==false;
 
-    writeRandomWordToFile(400, 4, RANDOM_WORD_LIST);
+    // writeRandomWordToFile(800, 4, RANDOM_WORD_LIST);
+    // writeRandomWordToFile(400, 4, RANDOM_WORD_LIST);
     // writeRandomWordToFile(200, 4, RANDOM_WORD_LIST);
 
     // check the number of false positive
