@@ -196,7 +196,6 @@ class BloomFilter{
       if(rnd.nextBoolean()) tmp+=CHAR_OFFSET;
       else tmp=Character.toLowerCase((char)(tmp+CHAR_OFFSET));
 
-      // System.out.println(tmp);
       assert (Character.isLowerCase((char)tmp)||Character.isUpperCase((char)tmp))==true;
       str+=(char)tmp;
     }
@@ -205,7 +204,6 @@ class BloomFilter{
 
   private void countFalsePositive(){
     int count=0;
-    // read word form RANDOM_WORD_LIST
     try{
       File file=new File(RANDOM_WORD_LIST);
       BufferedReader br=new BufferedReader(new FileReader(file));
