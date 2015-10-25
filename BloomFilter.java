@@ -7,6 +7,7 @@ class BloomFilter{
   private final int TABLE_SIZE=Integer.MAX_VALUE>>8;
   private boolean[] bloomTable;
   private final String WORD_LIST="wordlist.txt";
+  // private final int NUM_OF_HASH_METHOD=2;
   private final int NUM_OF_HASH_METHOD=1;
   private HashMethods[] hms;
   private final int CHAR_OFFSET=65; //(int)'A'->65
@@ -110,10 +111,13 @@ class BloomFilter{
     assert isInDictionary("xyzabc")==false;
     assert isInDictionary("hogehoge")==false;
 
-    assert isWordInWordList("AA")==true;
-    assert isWordInWordList("zythum")==true;
-    assert isWordInWordList("xyzabc")==false;
-    assert isWordInWordList("hogehoge")==false;
+    assert isInWordList("AA")==true;
+    assert isInWordList("zythum")==true;
+    assert isInWordList("xyzabc")==false;
+    assert isInWordList("hogehoge")==false;
+
+    writeRandomWordToFile(400, 4, RANDOM_WORD_LIST);
+    // writeRandomWordToFile(200, 4, RANDOM_WORD_LIST);
 
     // check the number of false positive
     countFalsePositive();
@@ -138,14 +142,31 @@ class BloomFilter{
   }
 
   private void countFalsePositive(){
+    int count=0;
     // read word form RANDOM_WORD_LIST
-    // check the word is in dictionary
-    // check the word is in WORD_LIST
-    // check the result is same
+    try{
+      File file=new File(RANDOM_WORD_LIST);
+      BufferedReader br=new BufferedReader(new FileReader(file));
+      String str;
+      while((str=br.readLine())!=null){
+        if(isInDictionary(str)==true && isInWordList(str)==false){
+          count++;
+          System.out.println(str+" is false positive");
+        }
+      }
+      br.close();
+    }
+    catch(FileNotFoundException e){
+      System.err.println(e);
+    }
+    catch(IOException e){
+      System.err.println(e);
+    }
+    System.out.println("number of false positive is "+count);
     return;
   }
 
-  private boolean isWordInWordList(String word){
+  private boolean isInWordList(String word){
     try{
       File file=new File(WORD_LIST);
       BufferedReader br=new BufferedReader(new FileReader(file));
@@ -165,6 +186,7 @@ class BloomFilter{
   }
 
   private void writeRandomWordToFile(int numWords, int wordLength, String fileName){
+    System.out.format("gen %d words, length is %d\n", numWords, wordLength);
     try{
       File file=new File(fileName);
       BufferedWriter bw=new BufferedWriter(new FileWriter(file));
