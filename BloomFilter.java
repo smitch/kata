@@ -77,17 +77,13 @@ class BloomFilter{
     try{
       File file=new File(WORD_LIST);
       br=new BufferedReader(new FileReader(file));
-    }
-    catch(FileNotFoundException e){
-      System.err.println(e);
-    }
 
-    try{
       String str;
       while((str=br.readLine())!=null){
         registDictionary(str);
         assert isInDictionary(str)==true;
       }
+      br.close();
     }
     catch(FileNotFoundException e){
       System.err.println(e);
@@ -96,18 +92,15 @@ class BloomFilter{
       System.err.println(e);
     }
 
-    try{
-      br.close();
-    }
-    catch(IOException e){
-      System.err.println(e);
-    }
-
-
     assert isInDictionary("AA")==true;
     assert isInDictionary("zythum")==true;
     assert isInDictionary("xyzabc")==false;
     assert isInDictionary("hogehoge")==false;
+
+    assert isWordInWordList("AA")==true;
+    assert isWordInWordList("zythum")==true;
+    assert isWordInWordList("xyzabc")==false;
+    assert isWordInWordList("hogehoge")==false;
 
     // check the number of false positive
 
@@ -128,6 +121,25 @@ class BloomFilter{
       str+=(char)tmp;
     }
     return str;
+  }
+
+  private boolean isWordInWordList(String word){
+    try{
+      File file=new File(WORD_LIST);
+      BufferedReader br=new BufferedReader(new FileReader(file));
+      String str;
+      while((str=br.readLine())!=null){
+        if(str.equals(word)) return true;
+      }
+      br.close();
+    }
+    catch(FileNotFoundException e){
+      System.err.println(e);
+    }
+    catch(IOException e){
+      System.err.println(e);
+    }
+    return false;
   }
 
   private void writeRandomWordToFile(int numWords, int wordLength, String fileName){
