@@ -2,7 +2,9 @@ class DivideWord1{
   // Objective: to divide 6 length word in dictionary into two words
   //           and write code as readable as possible
 
-  // void test
+  private void test(){
+    return;
+  }
 
   // HashSet<String> get6LengthWord
   // read file and get 6 length words
@@ -19,5 +21,6 @@ class DivideWord1{
 
   public static void main(String[] args){
     System.out.println("Divide word class first design: readable code");
+    new DivideWord1().test();
   }
 }
