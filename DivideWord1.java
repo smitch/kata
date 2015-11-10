@@ -1,6 +1,11 @@
+import java.util.HashSet;
+import java.io.*;
+
 class DivideWord1{
   // Objective: to divide 6 length word in dictionary into two words
   //           and write code as readable as possible
+
+  private final String wordList="wordlist.txt";
 
   private boolean isAssrtionEnabled(){
     boolean isEnabled=false;
@@ -15,6 +20,7 @@ class DivideWord1{
     }
     try{
 
+      System.out.println("test finished");
     }
     catch(AssertionError e){
       System.err.println("Error " + e.getMessage());
@@ -24,7 +30,28 @@ class DivideWord1{
    return;
   }
 
-  // HashSet<String> get6LengthWord
+  // boolean isAll6Wordfoud
+
+  private HashSet<String> get6LengthWord(){
+    HashSet<String> set=new HashSet<String>();
+    try{
+      File file=new File(wordList);
+      BufferedReader br=new BufferedReader(new FileReader(file));
+      String str;
+      while((str=br.readLine())!=null){
+        if(str.length()==6)
+          set.add(str);
+      }
+      br.close();
+    }
+    catch(FileNotFoundException e){
+      System.err.println(e);
+    }
+    catch(IOException e){
+      System.err.println(e);
+    }
+    return set;
+  }
   // read file and get 6 length words
 
   // void findDictionary
