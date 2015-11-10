@@ -2,8 +2,26 @@ class DivideWord1{
   // Objective: to divide 6 length word in dictionary into two words
   //           and write code as readable as possible
 
+  private boolean isAssrtionEnabled(){
+    boolean isEnabled=false;
+    assert isEnabled=true;
+    return isEnabled;
+  }
+
   private void test(){
-    return;
+    if(!isAssrtionEnabled()){
+      System.err.println("assertion is needed to test");
+      return;
+    }
+    try{
+
+    }
+    catch(AssertionError e){
+      System.err.println("Error " + e.getMessage());
+      e.printStackTrace();
+    }
+
+   return;
   }
 
   // HashSet<String> get6LengthWord
