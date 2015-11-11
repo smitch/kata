@@ -48,7 +48,7 @@ class DivideWord1{
       assert isInDictionary("hogehoge")==false;
       assert isInDictionary("ABC")==true;
       assert isInDictionary("abc")==false;
-
+      divideWord1(wordSet);
       System.out.println("test finished");
     }
     catch(AssertionError e){
@@ -109,11 +109,15 @@ class DivideWord1{
     return set;
   }
 
-  // pubclic void divideWord1{
-  // read dictionary and find 6 length word
-  // divide the word and find substring in dictionary
-  // if the both words are found, print the word
-  //}
+  private void divideWord1(HashSet<String> wordSet){
+    for(String str: wordSet){
+      for(int i=1; i<str.length()-1; i++){
+        if(isInDictionary(str.substring(0, i)) && isInDictionary(str.substring(i, str.length())))
+          System.out.println(str+"="+str.substring(0, i)+"+"+str.substring(i, str.length()));
+      }
+    }
+    return;
+  }
 
   public static void main(String[] args){
     System.out.println("Divide word class first design: readable code");
