@@ -81,7 +81,6 @@ class DivideWord1{
 
     return set;
   }
-  // read file and get 6 length words
 
   // void findDictionary
   // for each substring
