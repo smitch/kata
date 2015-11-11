@@ -82,9 +82,11 @@ class DivideWord1{
     return set;
   }
 
-  // void findDictionary
+  private void findDictionary(String word){
   // for each substring
   // findInDictionary
+    return;
+  }
 
   // pubclic void divideWord1{
   // read dictionary and find 6 length word
