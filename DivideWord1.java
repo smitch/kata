@@ -14,6 +14,29 @@ class DivideWord1{
     return isEnabled;
   }
 
+  private boolean isInDictionary(String word){
+    boolean ret=false;
+    try{
+      File file=new File(WORD_LIST);
+      BufferedReader br=new BufferedReader(new FileReader(file));
+      String str;
+      while((str=br.readLine())!=null){
+        if(str.equals(word)){
+          ret=true;
+          break;
+        }
+      }
+      br.close();
+    }
+    catch(FileNotFoundException e){
+      System.err.println(e);
+    }
+    catch(IOException e){
+      System.err.println(e);
+    }
+    return ret;
+  }
+
   private void test(){
     if(!isAssrtionEnabled()){
       System.err.println("assertion is needed to test");
@@ -22,6 +45,10 @@ class DivideWord1{
     try{
       HashSet<String> wordSet=get6LengthWord();
       assert isAll6Wordfoud(new HashSet<String>(wordSet))==true;
+      assert isInDictionary("hogehoge")==false;
+      assert isInDictionary("ABC")==true;
+      assert isInDictionary("abc")==false;
+
       System.out.println("test finished");
     }
     catch(AssertionError e){
@@ -80,12 +107,6 @@ class DivideWord1{
     }
 
     return set;
-  }
-
-  private void findDictionary(String word){
-  // for each substring
-  // findInDictionary
-    return;
   }
 
   // pubclic void divideWord1{
