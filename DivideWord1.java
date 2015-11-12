@@ -44,11 +44,13 @@ class DivideWord1{
     }
     try{
       HashSet<String> wordSet=get6LengthWord();
-      assert isAll6Wordfoud(new HashSet<String>(wordSet))==true;
+      assert isAll6Wordfound(new HashSet<String>(wordSet))==true;
       assert isInDictionary("hogehoge")==false;
       assert isInDictionary("ABC")==true;
       assert isInDictionary("abc")==false;
       divideWord1(wordSet);
+      // asset divideWord1(new HashSet<String>())
+
       System.out.println("test finished");
     }
     catch(AssertionError e){
@@ -59,7 +61,7 @@ class DivideWord1{
    return;
   }
 
-  private boolean isAll6Wordfoud(HashSet<String> wordSet){
+  private boolean isAll6Wordfound(HashSet<String> wordSet){
     boolean ret=true;
     try{
       File file=new File(WORD_LIST_6LENGTH);
@@ -112,8 +114,10 @@ class DivideWord1{
   private void divideWord1(HashSet<String> wordSet){
     for(String str: wordSet){
       for(int i=1; i<str.length()-1; i++){
-        if(isInDictionary(str.substring(0, i)) && isInDictionary(str.substring(i, str.length())))
-          System.out.println(str+"="+str.substring(0, i)+"+"+str.substring(i, str.length()));
+        String str1=str.substring(0, i);
+        String str2=str.substring(i, str.length());
+        if(isInDictionary(str1) && isInDictionary(str2))
+          System.out.println(str+" "+str1+" "+str2);
       }
     }
     return;
